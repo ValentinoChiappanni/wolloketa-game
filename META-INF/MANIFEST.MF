@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
-Automatic-Module-Name: Wolloketa
+Automatic-Module-Name: wolloketa
 Bundle-ManifestVersion: 2
-Bundle-Name: Wolloketa
+Bundle-Name: wolloketa
 Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
-Bundle-SymbolicName: Wolloketa; singleton:=true
+Bundle-SymbolicName: wolloketa; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.ibm.icu,
  org.eclipse.xtext,
