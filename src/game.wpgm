@@ -1,0 +1,7 @@
+import wollok.game.*
+
+program game{
+	 
+	 consola.inicar()
+	 game.start()
+}
