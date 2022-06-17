@@ -1,7 +1,12 @@
 import wollok.game.*
+import configTablero.*
+import jugadores.*
+
 
 program game{
 	 
-	 consola.inicar()
+	 juego.configuraciones()
 	 game.start()
+	 juego.iniciar()
+	 game.say(messi, "Gooooooooooool")
 }
