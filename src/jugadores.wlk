@@ -26,14 +26,16 @@ class JugadorGenerico{
 }
 
 class Arquero inherits JugadorGenerico{
-	
+	const posicionActual = position
 	override method image()= if(nacionalidad== argentino) {"arqueroArg.png"} else {"arqueroBra.png"}
 	
-	method 	moveteAbajo(){
-		self.position(self.position().down(1))
-	}
-	method 	moveteArriba(){
-		self.position(self.position().up(1))
+	method 	moverseOpuesto(){
+		if(position.y()==posicionActual.y())
+			self.position(self.position().down(1))
+		else{
+			self.position(self.position().up(1))
+		}
+		
 	}
 }
 
