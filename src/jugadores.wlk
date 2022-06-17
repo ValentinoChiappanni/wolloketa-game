@@ -29,9 +29,11 @@ class Arquero inherits JugadorGenerico{
 	
 	override method image()= if(nacionalidad== argentino) {"arqueroArg.png"} else {"arqueroBra.png"}
 	
-	method 	movete(){
+	method 	moveteAbajo(){
+		self.position(self.position().down(1))
+	}
+	method 	moveteArriba(){
 		self.position(self.position().up(1))
-		
 	}
 }
 

@@ -26,8 +26,10 @@ object juego{
 		game.addVisual(arquero1)
 		game.addVisual(arquero2)
 		
-		game.onTick(2000, "el meneaito", { => arquero1.movete()})
-	 	game.onTick(2000, "el meneaito", { => arquero2.movete()})
+		game.onTick(2000, "el meneaito", { => arquero1.moveteAbajo()})
+	 	game.onTick(2000, "el meneaito", { => arquero2.moveteAbajo()})
+	 	game.onTick(1900, "el meneaito2", { => arquero1.moveteArriba()})
+	 	game.onTick(1900, "el meneaito2", { => arquero2.moveteArriba()})
 	}
 	
 	method crearJugador(nombre, position, nacionalidad){
