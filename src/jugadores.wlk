@@ -31,6 +31,7 @@ class Arquero inherits JugadorGenerico{
 	
 	method 	movete(){
 		self.position(self.position().up(1))
+		
 	}
 }
 
@@ -40,7 +41,7 @@ object messi{
 	var property position = game.center().right(1)
 	
 	method patearPelota(){
-		 pelota.serPateada()
+		 
 	}
 }
 
@@ -49,7 +50,7 @@ object neymar{
 	var property position = game.center().left(1)
 	
 	method patearPelota(){
-		 pelota.serPateada()
+		 
 	}
 	
 }

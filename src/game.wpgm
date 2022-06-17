@@ -7,6 +7,4 @@ program game{
 	 
 	 juego.configuraciones()
 	 game.start()
-	 juego.iniciar()
-	 game.say(messi, "Gooooooooooool")
 }

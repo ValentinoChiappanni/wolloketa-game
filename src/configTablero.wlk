@@ -25,9 +25,7 @@ object juego{
 		seleccionBrasil.forEach({x=>game.addVisualCharacter(x)})
 		game.addVisual(arquero1)
 		game.addVisual(arquero2)
-	}
-	
-	method iniciar(){
+		
 		game.onTick(2000, "el meneaito", { => arquero1.movete()})
 	 	game.onTick(2000, "el meneaito", { => arquero2.movete()})
 	}
