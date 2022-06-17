@@ -10,7 +10,7 @@ object juego{
 	const jugadorBra3= self.crearJugador("Bra3", game.at(4,6), brasilero)
 	const seleccionArgentina= [jugadorArg1, jugadorArg2,jugadorArg3]
 	const seleccionBrasil= [ jugadorBra1,  jugadorBra2,  jugadorBra3]
-	const arquero1= new Arquero(nombre= "Willy", position= game.at(15,5), nacionalidad= argentino)
+	const arquero1= new Arquero(nombre= "Willy", position= game.at(15,6), nacionalidad= argentino)
 	const arquero2= new Arquero(nombre= "Pele", position= game.at(1,6), nacionalidad= brasilero)
 	
 	method configuraciones(){
@@ -26,8 +26,11 @@ object juego{
 		game.addVisual(arquero1)
 		game.addVisual(arquero2)
 		
-		game.onTick(2000, "el meneaito", { => arquero1.movete()})
-	 	game.onTick(2000, "el meneaito", { => arquero2.movete()})
+		
+		game.onTick(1000, "el meneaito", { => 
+			arquero1.moverseOpuesto()
+			arquero2.moverseOpuesto()
+		})
 	}
 	
 	method crearJugador(nombre, position, nacionalidad){
