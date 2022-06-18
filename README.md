@@ -11,7 +11,7 @@ Los jugadores genericos tendrán la misma imagen y comenzaran en una línea de d
 Siempre que un jugador genérico toque la pelota, la misma se pasará al jugador estrella de su equipo (Messi o Neymar, según corresponda).
 
 ## MESSI y NEYMAR
-<img src="https://phantom-marca.unidadeditorial.es/70be77e8f13efd9594d5f00f510e1471/resize/1320/f/jpg/assets/multimedia/imagenes/2021/07/11/16260207179530.jpg"
+<img src="https://phantom-marca.unidadeditorial.es/70be77e8f13efd9594d5f00f510e1471/resize/1320/f/jpg/assets/multimedia/imagenes/2021/07/11/16260207179530.jpg">
 Son los jugadores estrellas de cada equipo. Son los únicos encargados de meter goles. Cuando estos dos se chocan, el árbitro les da un aviso de tranquilidad. Cuando meten un gol gritan ¡GOOOOOOOL!.
 
 
