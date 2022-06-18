@@ -1,7 +1,7 @@
-# "MUNDIAL 2022"*
+# "MUNDIAL 2022"
 
-![Mundial]([muchasbicis.jpg](https://img.asmedia.epimg.net/resizer/fhNZ6Xf3QxTs89pWcLpl34krpDs=/360x203/cloudfront-eu-central-1.images.arcpublishing.com/diarioas/HYY324B22ZJATMWO4DAGYWWQIA.jpg) "Mundial")
-
+<img src="[/docs/logo.png](https://img.asmedia.epimg.net/resizer/fhNZ6Xf3QxTs89pWcLpl34krpDs=/360x203/cloudfront-eu-central-1.images.arcpublishing.com/diarioas/HYY324B22ZJATMWO4DAGYWWQIA.jpg)"
+     
 Nos interesa modelar la final del mundial de Qatar 2022, en donde se presupone que quedarán como finalistas Argentina y Brasil.
 Para eso tendremos jugadores genéricos, dos arqueros específicos, a Lionel Messi y a Neymar. Como objeto tendremos a la pelota que será única y no se podrá desinflar por ende no necesitará ser cambiada.
 El juego terminará cuando un equipo logre meter 5 goles con una diferencia de 2 (si no se continua hasta que se logre dicha diferencia).
