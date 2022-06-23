@@ -1,0 +1,10 @@
+import wollok.game.*
+import juego.*
+import jugadores.*
+
+
+program game{
+	 
+	 juego.configuraciones()
+	 game.start()
+}
