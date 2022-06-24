@@ -32,13 +32,27 @@ class Arquero inherits JugadorGenerico{
 	}
 }
 
-
-
 class JugadorPrincipal {
 	const property image
 	var property position
+	var property nacionalidad
 	var property ultimoMovimiento = 1
 	var property estaLlevandoLaPelota = false
+	//var property esElActivo = true
+	var property arcoRival = if(nacionalidad == argentino) {juego.arcoBra()} else if(nacionalidad == brasilero) {juego.arcoArg()}
+	var property previousPosition = position
+	
+	method seVaHaciaElGol() {
+		const otroPosicion = arcoRival.position()
+		var newX = position.x() + if (otroPosicion.x() > position.x()) 1 else -1
+		var newY = position.y() + if (otroPosicion.y() > position.y()) 1 else -1
+		// evitamos que se posicionen fuera del tablero
+		newX = newX.max(0).min(game.width() - 1)
+		newY = newY.max(0).min(game.height() - 1)
+		previousPosition = position
+		position = game.at(newX, newY)	
+		pelota.serLlevadaPor(self)
+	}
 	
 	method patearPelota(){
 		if (self.tieneLaPelota()){
@@ -52,10 +66,6 @@ class JugadorPrincipal {
 	
 	method hayPelotaAlrededor(){
 		return (position.x() - pelota.position().x()).abs() == 1 or (position.y() - pelota.position().y()).abs() == 1
-	}
-	
-	method llevar(objeto){
-		objeto.serLlevadaPor(self)
 	}
 	
 	method moverUnoArriba(){
