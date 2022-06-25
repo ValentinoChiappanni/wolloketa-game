@@ -11,8 +11,8 @@ object juego{
 	const seleccionArgentina= [jugadorArg1, jugadorArg2,jugadorArg3]
 	const seleccionBrasil= [ jugadorBra1,  jugadorBra2,  jugadorBra3]
 	
-	const arquero1= new Arquero(nombre= "Willy", position= game.at(15,6), nacionalidad= argentino)
-	const arquero2= new Arquero(nombre= "Pele", position= game.at(1,6), nacionalidad= brasilero)
+	const arquero1= new Arquero(position= game.at(15,6), nacionalidad= argentino)
+	const arquero2= new Arquero(position= game.at(1,6), nacionalidad= brasilero)
 	
 	const property arcoBra = new Arco(position=game.at(0,5), nacionalidad= brasilero)
 	const arcoBra2 = new Arco(position=game.at(0,6), nacionalidad= brasilero)
@@ -24,17 +24,14 @@ object juego{
 	
 	const property messi = new JugadorPrincipal (position=game.at(9,6), image="messi_colo.png", nacionalidad = argentino)
 	const property neymar = new JugadorPrincipal (position=game.at(7,6), image="neymar.png", nacionalidad = brasilero)
-	
-	var jugadorActivo = messi
-	var jugadorAutom = neymar
-	
-	
+	const property marcadorArg= new MarcadorDeGoles(position=game.at(14,11), nacionalidad= argentino)
+	const property marcadorBra= new MarcadorDeGoles(position=game.at(0,11), nacionalidad=brasilero)
 	
 	method crearJugador(nombre, position, nacionalidad){
-		return new JugadorGenerico(nombre= nombre, position= position, nacionalidad= nacionalidad)
+		return new JugadorGenerico(position= position, nacionalidad= nacionalidad)
 	}
-	method esGenerico(jugador) = seleccionBrasil.contains(jugador) || seleccionArgentina.contains(jugador)
-	method esPrincipal(jugador) = jugador == messi || jugador == neymar
+	/*method esGenerico(jugador) = seleccionBrasil.contains(jugador) || seleccionArgentina.contains(jugador)
+	method esPrincipal(jugador) = jugador == messi || jugador == neymar*/
 	
  	method configuraciones(){
 		//Tablero
@@ -69,10 +66,12 @@ object juego{
 		seleccionBrasil.forEach({x=>game.addVisual(x)})
 		game.addVisual(arquero1)
 		game.addVisual(arquero2)
+		game.addVisual(marcadorBra)
+		game.addVisual(marcadorArg)
 		
 		// Gol -- Falta game.clear()
 		
-		game.onCollideDo(pelota, { algo => if(arcos.contains(algo)) {pelota.entrarAlArco(algo) }})
+		/*game.onCollideDo(pelota, { algo => if(arcos.contains(algo)) {pelota.entrarAlArco(algo) }})*/
 		
 		//Movimiento arqueros
 		game.onTick(1000, "el meneaito", { => 
@@ -80,15 +79,23 @@ object juego{
 			arquero2.moverseOpuesto()
 		})
 		
-		//Movimiento jugador activo
-		keyboard.w().onPressDo { jugadorActivo.moverUnoArriba() }
-		keyboard.s().onPressDo { jugadorActivo.moverUnoAbajo() }
-		keyboard.a().onPressDo { jugadorActivo.moverUnoIzquierda() }
-		keyboard.d().onPressDo { jugadorActivo.moverUnoDerecha() }
-		keyboard.space().onPressDo { jugadorActivo.patearPelota() }
+		//Movimiento jugadores activo
+		keyboard.w().onPressDo { messi.moverUnoArriba() }
+		keyboard.s().onPressDo { messi.moverUnoAbajo() }
+		keyboard.a().onPressDo { messi.moverUnoIzquierda() }
+		keyboard.d().onPressDo { messi.moverUnoDerecha() }
+		keyboard.space().onPressDo { messi.patearPelota() }
+		keyboard.up().onPressDo { neymar.moverUnoArriba() }
+		keyboard.down().onPressDo { neymar.moverUnoAbajo() }
+		keyboard.left().onPressDo { neymar.moverUnoIzquierda() }
+		keyboard.right().onPressDo { neymar.moverUnoDerecha() }
+		keyboard.enter().onPressDo { neymar.patearPelota() }
+		
+		
+		
 		
 		//Cambiar jugador
-		keyboard.j().onPressDo { if (jugadorActivo == messi){
+		/*keyboard.j().onPressDo { if (jugadorActivo == messi){
 									jugadorActivo = neymar
 									jugadorAutom = messi
 									//neymar.esElActivo(true)
@@ -99,13 +106,24 @@ object juego{
 									//messi.esElActivo(true)
 									//neymar.esElActivo(false)
 								}
-		}
+		}*/
 		
-		game.whenCollideDo(pelota, { jugador => if(self.esPrincipal(jugador)) {pelota.serLlevadaPor(jugador)}
-												if(self.esGenerico(jugador)) { jugador.pasarPelotaAJugadorEstrella() }
+		
+		game.whenCollideDo(pelota, { cosita => cosita.realizarAccionCon(pelota)
 		})
 		
-		game.onTick(1000, "movimiento", {if(jugadorAutom.tieneLaPelota()) jugadorAutom.seVaHaciaElGol()})
+		/*game.onCollideDo(pelota, {cosita => cosita.realizarAccionCon(pelota)
+								if(cosita==arcoBra || cosita == arcoBra2) messi.gritarGol()
+								else if(cosita==arcoArg || cosita == arcoArg2) neymar.gritarGol()})
+		*/
+		
+		
+		
+		/*game.whenCollideDo(pelota, { jugador => if(self.esPrincipal(jugador)) {pelota.serLlevadaPor(jugador)}
+												if(self.esGenerico(jugador)) { jugador.pasarPelotaAJugadorEstrella() }
+		})*/
+		
+		/*game.onTick(1000, "movimiento", {if(jugadorAutom.tieneLaPelota()) jugadorAutom.seVaHaciaElGol()})*/
 	}
 
 }
