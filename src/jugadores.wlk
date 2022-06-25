@@ -20,7 +20,7 @@ class JugadorGenerico{
 }
 
 class Arquero inherits JugadorGenerico{
-	const posicionActual = position
+	const posicionActual= position
 	override method image()= if(nacionalidad== argentino) {"arqueroArg.png"} else {"arqueroBra.png"}
 	
 	method 	moverseOpuesto(){
@@ -43,25 +43,12 @@ class Arquero inherits JugadorGenerico{
 
 class JugadorPrincipal {
 	const property image
-	var property position
+	const property posicionInicial
+	var property position = posicionInicial
 	var property nacionalidad
 	var property ultimoMovimiento = 1
 	var property estaLlevandoLaPelota = false
-	//var property esElActivo = true
 	var property arcoRival = if(nacionalidad == argentino) {juego.arcoBra()} else if(nacionalidad == brasilero) {juego.arcoArg()}
-	var property previousPosition = position
-	
-	/*method seVaHaciaElGol() {
-		const otroPosicion = arcoRival.position()
-		var newX = position.x() + if (otroPosicion.x() > position.x()) 1 else -1
-		var newY = position.y() + if (otroPosicion.y() > position.y()) 1 else -1
-		// evitamos que se posicionen fuera del tablero
-		newX = newX.max(0).min(game.width() - 1)
-		newY = newY.max(0).min(game.height() - 1)
-		previousPosition = position
-		position = game.at(newX, newY)	
-		pelota.serLlevadaPor(self)
-	}*/
 	
 	method realizarAccionCon(pelota){
 		pelota.serLlevadaPor(self)
@@ -106,7 +93,8 @@ class JugadorPrincipal {
 
 object pelota{
 	const property image= "pelota.png"
-	var property position= game.center()
+	const posicionInicial= game.at(8,6)
+	var property position = posicionInicial
 	
 	method serPateadaPor(jugador){
 		if (jugador.ultimoMovimiento() == 1){
@@ -136,10 +124,19 @@ object pelota{
 	method entrarAlArco(arco) {
 		if(arco.nacionalidad() == brasilero) {
 		juego.messi().gritarGol()
-		juego.marcadorBra().agregarGol()}
+		juego.marcadorBra().agregarGol()
+		position= game.at(8,6)
+		juego.messi().position(juego.messi().posicionInicial())
+		juego.neymar().position(juego.neymar().posicionInicial())
+		}
 		else if(arco.nacionalidad() == argentino) {
 		juego.neymar().gritarGol()
-		juego.marcadorArg().agregarGol()}
+		juego.marcadorArg().agregarGol()
+		self.position(game.at(8,6))
+		juego.neymar().position(juego.neymar().posicionInicial())
+		juego.messi().position(juego.messi().posicionInicial())
+		}
+
 	}
 
 }
@@ -164,8 +161,6 @@ class MarcadorDeGoles{
 	
 	method image(){ 
 		var img
-	
-		//"goles" + cantidadDeGoles + ".png"
 		if(cantidadDeGoles== 0){
 			img= "goles0.png"
 		} else if(cantidadDeGoles== 1){
@@ -178,11 +173,9 @@ class MarcadorDeGoles{
 			img= "goles4.png"
 		} else if(cantidadDeGoles== 5){
 			img= "goles5.png"
-			//game.boardGround(self.imagenDelCampeon())
 			//const champion = game.sound("light-rain.mp3")
 			//champion.shouldLoop(true)
 			//game.schedule(500, {champion.play()})
-			//game.start()
 		} return img
 	
 	}
@@ -204,6 +197,10 @@ class MarcadorDeGoles{
 	}
 }
 
+class Campeon{
+	var property position= game.at(8,6)
+	const property image
+}
 /*object marcadorGoles {
 	const property position= game.at(16,16)
 	method image(){
