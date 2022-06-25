@@ -24,16 +24,14 @@ object juego{
 	
 	const property messi = new JugadorPrincipal (posicionInicial=game.at(9,6), image="messi_colo.png", nacionalidad = argentino)
 	const property neymar = new JugadorPrincipal (posicionInicial=game.at(7,6), image="neymar.png", nacionalidad = brasilero)
-	const property marcadorArg= new MarcadorDeGoles(position=game.at(14,11), nacionalidad= argentino)
-	const property marcadorBra= new MarcadorDeGoles(position=game.at(0,11), nacionalidad=brasilero)
+	const property marcadorArg= new MarcadorDeGoles(position=game.at(0,11), nacionalidad= argentino)
+	const property marcadorBra= new MarcadorDeGoles(position=game.at(13,11), nacionalidad=brasilero)
 	
 	const property visuales= [pelota, arcoBra, arcoBra2, arcoArg, arcoArg2, jugadorArg1, jugadorArg2,jugadorArg3, jugadorBra1,  jugadorBra2, jugadorBra3, messi, neymar, arquero1, arquero2, marcadorArg, marcadorBra]
 	const visualesADesaparecer= [pelota, messi, neymar]
 	method crearJugador(nombre, position, nacionalidad){
 		return new JugadorGenerico(position= position, nacionalidad= nacionalidad)
 	}
-	/*method esGenerico(jugador) = seleccionBrasil.contains(jugador) || seleccionArgentina.contains(jugador)
-	method esPrincipal(jugador) = jugador == messi || jugador == neymar*/
 	
  	method configuraciones(){
 		//Tablero
@@ -52,34 +50,13 @@ object juego{
 	    
 	    //Agregar visuales y demás
 		self.iniciarJuego()
-	
 	}
 	
 	method iniciarVisuales(){
-		//Visuales
 		self.visuales().forEach({x=>game.addVisual(x)})
-		/*game.addVisual(arcoBra)
-		game.addVisual(arcoArg)
-		game.addVisual(arcoBra2)
-		game.addVisual(arcoArg2)
-		game.addVisual(messi)
-		game.addVisual(neymar)
-		seleccionArgentina.forEach({x=>game.addVisual(x)})
-		seleccionBrasil.forEach({x=>game.addVisual(x)})
-		game.addVisual(arquero1)
-		game.addVisual(arquero2)
-		game.addVisual(marcadorBra)
-		game.addVisual(marcadorArg)*/
 	}
 	
-	method eliminarAlgunasVisuales(){
-		visualesADesaparecer.forEach({x=>game.removeVisual(x)})
-	}
-	
-	method agregarAlgunasVisuales(){
-		visualesADesaparecer.forEach({x=>game.addVisual(x)})
-	}
-	
+	/*
 	method salirCampeon(){
 		if(marcadorArg.cantidadDeGoles()==5){
 			game.addVisual(new Campeon(image=marcadorArg.imagenDelCampeon()))
@@ -87,13 +64,11 @@ object juego{
 			game.addVisual(new Campeon(image=marcadorBra.imagenDelCampeon()))
 		}
 	}
+	*/
 	
 	method iniciarJuego(){
-		
+		//Visuales
 		self.iniciarVisuales()
-		// Gol -- Falta game.clear()
-		
-		/*game.onCollideDo(pelota, { algo => if(arcos.contains(algo)) {pelota.entrarAlArco(algo) }})*/
 		
 		//Movimiento arqueros
 		game.onTick(1000, "el meneaito", { => 
@@ -117,6 +92,6 @@ object juego{
 		game.whenCollideDo(pelota, { cosita => cosita.realizarAccionCon(pelota)
 		})
 		
-		self.salirCampeon()
-
+		//self.salirCampeon()
+		}
 }

@@ -1,5 +1,5 @@
 import wollok.game.*
-import juego.*
+import mundialito.*
 
 class JugadorGenerico{
 	
@@ -88,6 +88,10 @@ class JugadorPrincipal {
 	method gritarGol() {
 		game.say(self, "GOOOOL!")
 	}
+	
+	method volverAPosicionInicial(){
+		position = posicionInicial
+	}
 }
 
 
@@ -110,13 +114,13 @@ object pelota{
 	
 	method serLlevadaPor(jugador){
 		jugador.estaLlevandoLaPelota(true)
-		if (jugador.ultimoMovimiento() == 1){
+		if (jugador.ultimoMovimiento() == 1 && jugador.position().up(1).y() < game.height()){
 			position = jugador.position().up(1)
-		}else if (jugador.ultimoMovimiento() == 2){
+		}else if (jugador.ultimoMovimiento() == 2 && jugador.position().down(1).y() > 0){
 			position = jugador.position().down(1)
-		}else if (jugador.ultimoMovimiento() == 3){
+		}else if (jugador.ultimoMovimiento() == 3 && jugador.position().right(1).x() < game.width()){
 			position = jugador.position().right(1)
-		}else if (jugador.ultimoMovimiento() == 4){
+		}else if (jugador.ultimoMovimiento() == 4 && jugador.position().left(1).x() >=0 ){
 			position = jugador.position().left(1)
 		}
 	}
@@ -125,18 +129,23 @@ object pelota{
 		if(arco.nacionalidad() == brasilero) {
 		juego.messi().gritarGol()
 		juego.marcadorBra().agregarGol()
-		position= game.at(8,6)
-		juego.messi().position(juego.messi().posicionInicial())
-		juego.neymar().position(juego.neymar().posicionInicial())
+		self.reubicarse()
 		}
 		else if(arco.nacionalidad() == argentino) {
 		juego.neymar().gritarGol()
 		juego.marcadorArg().agregarGol()
-		self.position(game.at(8,6))
-		juego.neymar().position(juego.neymar().posicionInicial())
-		juego.messi().position(juego.messi().posicionInicial())
+		self.reubicarse()
 		}
-
+	}
+	
+	method volverAPosicionInicial(){
+		position= posicionInicial
+	}
+	
+	method reubicarse() {
+		self.volverAPosicionInicial()
+		juego.neymar().volverAPosicionInicial()
+		juego.messi().volverAPosicionInicial()
 	}
 
 }
@@ -173,6 +182,7 @@ class MarcadorDeGoles{
 			img= "goles4.png"
 		} else if(cantidadDeGoles== 5){
 			img= "goles5.png"
+			game.stop()
 			//const champion = game.sound("light-rain.mp3")
 			//champion.shouldLoop(true)
 			//game.schedule(500, {champion.play()})
@@ -184,10 +194,6 @@ class MarcadorDeGoles{
 		cantidadDeGoles++
 	}
 	
-	/*method asignarImagen(){
-		game.ground(imagen)
-	}*/
-	
 	method imagenDelCampeon(){
 		if(nacionalidad==argentino){
 			return "messiCampeon.png"
@@ -195,31 +201,11 @@ class MarcadorDeGoles{
 			return "neymarCampeon.png"
 		}
 	}
+	
+	method realizarAccionCon(pelota){}
 }
 
 class Campeon{
 	var property position= game.at(8,6)
 	const property image
 }
-/*object marcadorGoles {
-	const property position= game.at(16,16)
-	method image(){
-		if(cantidadGoles== 0){
-			image= "0goles.png"
-		} else if(cantidadGoles== 1){
-			image= "1gol.png"
-		} else if(cantidadGoles== 2){
-			image= "2goles.png"
-		} else if(cantidadGoles== 3){
-			image= "3goles.png"
-		} else if(cantidadGoles== 4){
-			image= "4goles.png"
-		} else if(cantidadGoles== 5){
-			image= "5goles.png"
-			game.backGround(campeon.imagenDelCampeon())
-			const champion = game.sound("light-rain.mp3")
-			champion.shouldLoop(true)
-			game.schedule(500, {champion.play()})
-			game.start()
-		}
-	}*/
