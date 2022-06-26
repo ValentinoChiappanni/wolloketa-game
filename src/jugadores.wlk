@@ -1,5 +1,6 @@
 import wollok.game.*
 import mundialito.*
+import juego.*
 
 class JugadorGenerico{
 	
@@ -102,13 +103,13 @@ object pelota{
 	
 	method serPateadaPor(jugador){
 		if (jugador.ultimoMovimiento() == 1){
-			position = jugador.position().up(4)
+			position = game.at(jugador.position().x(),jugador.position().up(4).y().min(11)  )
 		}else if (jugador.ultimoMovimiento() == 2){
-			position = jugador.position().down(4)
+			position = game.at(jugador.position().x(),jugador.position().down(4).y().max(1)  )
 		}else if (jugador.ultimoMovimiento() == 3){
-			position = jugador.position().right(4)
-		}else if (jugador.ultimoMovimiento() == 4){
-			position = jugador.position().left(4)
+			position = game.at(jugador.position().right(4).x().min(16),jugador.position().y()  )
+		}else if (jugador.ultimoMovimiento() == 4 ){
+			position = game.at(jugador.position().left(4).x().max(0),jugador.position().y()  )
 		}
 	}
 	
@@ -135,6 +136,7 @@ object pelota{
 		juego.neymar().gritarGol()
 		juego.marcadorArg().agregarGol()
 		self.reubicarse()
+		juego.marcadorArg()
 		}
 	}
 	
@@ -182,30 +184,57 @@ class MarcadorDeGoles{
 			img= "goles4.png"
 		} else if(cantidadDeGoles== 5){
 			img= "goles5.png"
-			game.stop()
 			//const champion = game.sound("light-rain.mp3")
 			//champion.shouldLoop(true)
 			//game.schedule(500, {champion.play()})
-		} return img
-	
+			
+		} return img	
 	}
+	
 	
 	method agregarGol(){
 		cantidadDeGoles++
+		if(nacionalidad == argentino && cantidadDeGoles == 5){
+			self.ganador(campeonNeymar)
+		}else if(nacionalidad == brasilero && cantidadDeGoles == 5){
+			self.ganador(campeonMessi)
+		}
 	}
 	
-	method imagenDelCampeon(){
-		if(nacionalidad==argentino){
-			return "messiCampeon.png"
-		} else{
-			return "neymarCampeon.png"
-		}
+	method ganador (ganador){
+		game.clear()
+		
+		game.addVisual(ganador)
+		//const final = game.sound("auidoFInal.mp3")
+	   	//final.shouldLoop(true)
+	   //	game.schedule(500, { final.play()} )
+		game.addVisual(reiniciar)
+		game.schedule(12000, {=> game.stop() })
+		keyboard.enter().onPressDo { reiniciar.accion() }
+		cantidadDeGoles = 0
+		pelota.reubicarse()
 	}
 	
 	method realizarAccionCon(pelota){}
 }
 
-class Campeon{
-	var property position= game.at(8,6)
-	const property image
+
+object campeonMessi {
+	const property position= game.at(0,0)
+	const property image = "messiCampeon.png"
 }
+object campeonNeymar {
+	const property position= game.at(0,0)
+	const property image = "neymarCampeon.png"
+}
+
+object reiniciar {
+	method image() = "reiniciar.png"
+	method position() = game.center().up(3).left(6)
+	
+	//method text() = "Reiniciar!"
+	method accion(){
+		mundialito.iniciar()
+		
+	}
+	}
